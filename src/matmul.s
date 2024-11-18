@@ -116,7 +116,26 @@ inner_loop_start:
     
 inner_loop_end:
     # TODO: Add your own implementation
+    slli t1, a2, 2           # t1 = a2 * 4 (cols0 << 2)
+    add s3, s3, t1           # Move to the next row
+    addi s0, s0, 1           # Increment row counter
+    j outer_loop_start        # Jump back to the start of the outer loop
+
+
+outer_loop_end:
+    # Epilogue (Restore registers and return)
+    lw ra, 0(sp)
+    lw s0, 4(sp)
+    lw s1, 8(sp)
+    lw s2, 12(sp)
+    lw s3, 16(sp)
+    lw s4, 20(sp)
+    lw s5, 24(sp)
+    addi sp, sp, 28
+    jr ra
 
 error:
     li a0, 38
     j exit
+
+

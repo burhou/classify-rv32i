@@ -63,7 +63,16 @@ write_matrix:
 
     # mul s4, s2, s3   # s4 = total elements
     # FIXME: Replace 'mul' with your own implementation
+    li s4, 0
+    li t1, 0
 
+multiply_loop:
+    bge t1, s3, multiply_done
+    add s4, s4, s2
+    addi t1, t1, 1
+    j multiply_loop
+
+multiply_done:
     # write matrix data to file
     mv a0, s0
     mv a1, s1        # matrix data pointer
@@ -113,3 +122,4 @@ error_exit:
     lw s4, 20(sp)
     addi sp, sp, 44
     j exit
+

@@ -29,7 +29,21 @@ relu:
 
 loop_start:
     # TODO: Add your own implementation
+    bge t1, a1, done      # If t1 >= a1, we are done
+    lw t2, 0(a0)          # Load array element into t2
+    bge t2, zero, skip    # If t2 >= 0, skip modification
+
+    # If t2 < 0, set it to 0 (ReLU operation)
+    sw zero, 0(a0)        # Store 0 back into the array
+
+skip:
+    addi t1, t1, 1        # Increment the loop counter
+    addi a0, a0, 4        # Move to the next element (4 bytes per int)
+    j loop_start              # Repeat for next element
 
 error:
     li a0, 36          
-    j exit          
+    j exit
+
+done:
+    jr ra          

@@ -28,3 +28,4 @@ main:
     # exit program normally
     li a0 0
     jal exit
+
